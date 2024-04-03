@@ -94,6 +94,8 @@ Bias（偏置）
 
 Our algorithm will try to *learn* the correct values for Weight and Bias. By the end of our training, our equation will approximate the *line of best fit*.
 
+我们的算法将尝试训练权重和偏置的修正值。训练结束，我们的方程将贴近 *最佳拟合线* 。
+
 .. image:: images/linear_regression_line_intro.png
     :align: center
 
@@ -105,10 +107,12 @@ Our algorithm will try to *learn* the correct values for Weight and Bias. By the
       return weight*radio + bias
 
 
-Cost function
--------------
+Cost function（成本函数）
+------------------------
 
 The prediction function is nice, but for our purposes we don't really need it. What we need is a :doc:`cost function <loss_functions>` so we can start optimizing our weights.
+
+预测函数虽好，但就我们的目的而言，（现阶段）并非真正必需。我们需要的是一个 :doc:`成本函数 <损失函数>`，这样我们才能开始优化我们的权重。
 
 Let's use :ref:`mse` as our cost function. MSE measures the average squared difference between an observation's actual and predicted values. The output is a single number representing the cost, or score, associated with our current set of weights. Our goal is to minimize MSE to improve the accuracy of our model.
 
