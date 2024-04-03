@@ -39,7 +39,7 @@ A more complex, multi-variable linear equation might look like this, where :math
 
 The variables :math:`x, y, z` represent the attributes, or distinct pieces of information, we have about each observation. For sales predictions, these attributes might include a company's advertising spend on radio, TV, and newspapers.
 
-这些变量 :math:`x, y, z` 表示观测样本的属性（不同的特征信息）。针对销售预测，这些属性可能包含一个公司分别在电台，TV和报纸的广告投入。
+这些变量 :math:`x, y, z` 表示观测样本的属性（不同的特征信息）。对于销量预测，这些属性可能包含一个公司分别在电台，TV和报纸的广告投入。
 
 .. math::
 
@@ -51,7 +51,7 @@ Simple regression（简单回归）
 
 Let’s say we are given a `dataset <http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv>`_ with the following columns (features): how much a company spends on Radio advertising each year and its annual Sales in terms of units sold. We are trying to develop an equation that will let us to predict units sold based on how much a company spends on radio advertising. The rows (observations) represent companies.
 
-假设我们给定具有以下表头（特征）的 `数据集 <http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv>`_：一家公司每年在电台广告上的花费以及以销售为单位的年销售额。我们试图建一个方程式来根据公司的电台广告花费（Radio）预测销量（Sales）。
+假设我们给定具有以下表头（特征）的 `数据集 <http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv>`_：一家公司每年在电台广告上的支出以及以销量为单位的年销售额。我们试图建一个方程式来根据公司的电台广告花费（Radio）预测销量（Sales）。
 
 +--------------+---------------+-----------+
 | **Company**  | **Radio ($)** | **Sales** |
@@ -66,25 +66,31 @@ Let’s say we are given a `dataset <http://www-bcf.usc.edu/~gareth/ISL/Advertis
 +--------------+---------------+-----------+
 
 
-Making predictions
-------------------
+Making predictions（做出预测）
+-----------------------------
 
 Our prediction function outputs an estimate of sales given a company's radio advertising spend and our current values for *Weight* and *Bias*.
+
+我们的预测函数根据当前的 *权重（斜率）* 和 *偏置（截距）* 值以及给定的电台广告支出输出一个销售额的估算结果
 
 .. math::
 
   Sales = Weight \cdot Radio + Bias
 
-Weight
+Weight（权重）
   the coefficient for the Radio independent variable. In machine learning we call coefficients *weights*.
 
-Radio
+  作为自变量Radio的系数。在机器学习中我们称之为 *权重* 。
+
+Radio（电台广告支出）
   the independent variable. In machine learning we call these variables *features*.
 
-Bias
+  自变量。在机器学习中我们称这些变量为 *特征* 。
+
+Bias（偏置）
   the intercept where our line intercepts the y-axis. In machine learning we can call intercepts *bias*. Bias offsets all predictions that we make.
 
-
+  直线与y轴相交处的截距。在机器学习中我们将截距称为 *偏置* 。偏置会对我们所做的所有预测产生一个偏差修正。
 
 Our algorithm will try to *learn* the correct values for Weight and Bias. By the end of our training, our equation will approximate the *line of best fit*.
 
