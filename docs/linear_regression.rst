@@ -160,7 +160,11 @@ To minimize MSE we use :doc:`gradient_descent` to calculate the gradient of our 
 
 There are two :ref:`parameters <glossary_parameters>` (coefficients) in our cost function we can control: weight :math:`m` and bias :math:`b`. Since we need to consider the impact each one has on the final prediction, we use partial derivatives. To find the partial derivatives, we use the :ref:`chain_rule`. We need the chain rule because :math:`(y - (mx + b))^2` is really 2 nested functions: the inner function :math:`y - (mx + b)` and the outer function :math:`x^2`.
 
+在我们的代价函数中有两个可控参数（系数）：权重 :math:`m` 和偏置 :math:`b`。由于我们需要考虑这两个参数各自对最终预测结果产生的影响，所以我们采用偏导数来进行分析。
+
 Returning to our cost function:
+
+回到我们的代价函数：
 
 .. math::
 
@@ -168,11 +172,15 @@ Returning to our cost function:
 
 Using the following:
 
+使用如下等价公式（复合函数表示形式）：
+
 .. math::
 
     (y_i - (mx_i + b))^2 = A(B(m,b))
 
 We can split the derivative into
+
+我们拆解复合函数导数为
 
 .. math::
 
@@ -181,6 +189,8 @@ We can split the derivative into
     \frac{df}{dx} = A'(x) = 2x
 
 and
+
+以及
 
 .. math::
 
@@ -192,6 +202,8 @@ and
 
 And then using the :ref:`chain_rule` which states:
 
+然后使用链式法则申明如下：
+
 .. math::
 
     \frac{df}{dm} = \frac{df}{dx} \frac{dx}{dm}
@@ -200,6 +212,8 @@ And then using the :ref:`chain_rule` which states:
 
 We then plug in each of the parts to get the following derivatives
 
+将前面求得的基本函数导数代入其中得到（复合函数）导数：
+
 .. math::
 
     \frac{df}{dm} = A'(B(m,f)) B'(m) = 2(y_i - (mx_i + b)) \cdot -x_i
@@ -207,6 +221,8 @@ We then plug in each of the parts to get the following derivatives
     \frac{df}{db} = A'(B(m,f)) B'(b) = 2(y_i - (mx_i + b)) \cdot -1
 
 We can calculate the gradient of this cost function as:
+
+我们可以通过如下形式计算代价函数的梯度：
 
 .. math::
   \begin{align}
@@ -230,6 +246,8 @@ We can calculate the gradient of this cost function as:
 .. rubric:: Code
 
 To solve for the gradient, we iterate through our data points using our new weight and bias values and take the average of the partial derivatives. The resulting gradient tells us the slope of our cost function at our current position (i.e. weight and bias) and the direction we should update to reduce our cost function (we move in the direction opposite the gradient). The size of our update is controlled by the :ref:`learning rate <glossary_learning_rate>`.
+
+为了求解梯度，我们不断使用新的权重和偏差值遍历所有数据点（样本数据），并取偏导数的平均值。通过此时梯度结果可知代价函数在当前位置的斜率（权重和偏置）以及应该更新以减少代价函数的方向（我们朝梯度反方向移动）。（权重和偏置）更新的步进值由 :ref:`learning rate（学习率）控制。
 
 ::
 
