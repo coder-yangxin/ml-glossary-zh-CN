@@ -107,18 +107,22 @@ Our algorithm will try to *learn* the correct values for Weight and Bias. By the
       return weight*radio + bias
 
 
-Cost function（成本函数）
+Cost function（代价函数）
 ------------------------
 
 The prediction function is nice, but for our purposes we don't really need it. What we need is a :doc:`cost function <loss_functions>` so we can start optimizing our weights.
 
-预测函数虽好，但就我们的目的而言，（现阶段）并非真正必需。我们需要的是一个 :doc:`成本函数 <损失函数>`，这样我们才能开始优化我们的权重。
+预测函数很完美，但就我们的目的而言，（现阶段）并非真正必需。我们需要的是一个 :doc:`代价函数 <损失函数>`，这样我们才能开始优化我们的权重。
 
 Let's use :ref:`mse` as our cost function. MSE measures the average squared difference between an observation's actual and predicted values. The output is a single number representing the cost, or score, associated with our current set of weights. Our goal is to minimize MSE to improve the accuracy of our model.
+
+我们使用 :ref:`mse` （均方误差）作为我们的代价函数。MSE（均方误差）衡量的是每个样本实际值与其预测值之间平方差的平均值。其输出是一个单一数字，代表与当前（预测函数）权值集合相关的代价或评分。我们的目标是尽可能减小MSE，以提高模型的准确性。
 
 .. rubric:: Math
 
 Given our simple linear equation :math:`y = mx + b`, we can calculate MSE as:
+
+给定简单的线性方程 :math:`y = mx + b`, 可以使用以下方式计算MSE：
 
 .. math::
 
@@ -127,8 +131,11 @@ Given our simple linear equation :math:`y = mx + b`, we can calculate MSE as:
 .. note::
 
   - :math:`N` is the total number of observations (data points)
+  - :math:`N` 表示样本数量（数据点集合）
   - :math:`\frac{1}{N} \sum_{i=1}^{n}` is the mean
+  - :math:`\frac{1}{N} \sum_{i=1}^{n}` 表示均值
   - :math:`y_i` is the actual value of an observation and :math:`m x_i + b` is our prediction
+  - :math:`y_i` 表示样本的真实值， :math:`m x_i + b` 表示我们的预测值
 
 .. rubric:: Code
 
@@ -142,10 +149,12 @@ Given our simple linear equation :math:`y = mx + b`, we can calculate MSE as:
       return total_error / companies
 
 
-Gradient descent
-----------------
+Gradient descent（梯度下降）
+---------------------------
 
 To minimize MSE we use :doc:`gradient_descent` to calculate the gradient of our cost function. Gradient descent consists of looking at the error that our weight currently gives us, using the derivative of the cost function to find the gradient (The slope of the cost function using our current weight), and then changing our weight to move in the direction opposite of the gradient. We need to move in the opposite direction of the gradient since the gradient points up the slope instead of down it, so we move in the opposite direction to try to decrease our error. 
+
+为了最小化MSE我们使用 :doc:`gradient_descent` 来计算损失函数的梯度。梯度下降的过程包括：观察当前权重所带来的误差，利用代价函数的导数找到梯度（即采用当前权重时代价函数的斜率），然后调整权重使其朝着梯度相反的方向移动。
 
 .. rubric:: Math
 
