@@ -107,16 +107,16 @@ Our algorithm will try to *learn* the correct values for Weight and Bias. By the
       return weight*radio + bias
 
 
-Cost function（代价函数）
+Cost function（成本函数）
 ------------------------
 
 The prediction function is nice, but for our purposes we don't really need it. What we need is a :doc:`cost function <loss_functions>` so we can start optimizing our weights.
 
-预测函数很完美，但就我们的目的而言，（现阶段）并非真正必需。我们需要的是一个 :doc:`代价函数 <损失函数>`，这样我们才能开始优化我们的权重。
+预测函数很完美，但就我们的目的而言，（现阶段）并非真正必需。我们需要的是一个 :doc:`成本函数 <损失函数>`，这样我们才能开始优化我们的权重。
 
 Let's use :ref:`mse` as our cost function. MSE measures the average squared difference between an observation's actual and predicted values. The output is a single number representing the cost, or score, associated with our current set of weights. Our goal is to minimize MSE to improve the accuracy of our model.
 
-我们使用 :ref:`mse` （均方误差）作为我们的代价函数。MSE（均方误差）衡量的是每个样本实际值与其预测值之间平方差的平均值。其输出是一个单一数字，代表与当前（预测函数）权值集合相关的代价或评分。我们的目标是尽可能减小MSE，以提高模型的准确性。
+我们使用 :ref:`mse` （均方误差）作为我们的成本函数。MSE（均方误差）衡量的是每个样本实际值与其预测值之间平方差的平均值。其输出是一个单一数字，代表与当前（预测函数）权值集合相关的成本或评分。我们的目标是尽可能减小MSE，以提高模型的准确性。
 
 .. rubric:: Math
 
@@ -154,17 +154,17 @@ Gradient descent（梯度下降）
 
 To minimize MSE we use :doc:`gradient_descent` to calculate the gradient of our cost function. Gradient descent consists of looking at the error that our weight currently gives us, using the derivative of the cost function to find the gradient (The slope of the cost function using our current weight), and then changing our weight to move in the direction opposite of the gradient. We need to move in the opposite direction of the gradient since the gradient points up the slope instead of down it, so we move in the opposite direction to try to decrease our error. 
 
-为了最小化MSE我们使用 :doc:`gradient_descent` 来计算损失函数的梯度。梯度下降的过程包括：观察当前权重所带来的误差，利用代价函数的导数找到梯度（即采用当前权重时代价函数的斜率），然后调整权重使其朝着梯度相反的方向移动。
+为了最小化MSE我们使用 :doc:`gradient_descent` 来计算损失函数的梯度。梯度下降的过程包括：观察当前权重所带来的误差，利用成本函数的导数找到梯度（即采用当前权重时成本函数的斜率），然后调整权重使其朝着梯度相反的方向移动。
 
 .. rubric:: Math
 
 There are two :ref:`parameters <glossary_parameters>` (coefficients) in our cost function we can control: weight :math:`m` and bias :math:`b`. Since we need to consider the impact each one has on the final prediction, we use partial derivatives. To find the partial derivatives, we use the :ref:`chain_rule`. We need the chain rule because :math:`(y - (mx + b))^2` is really 2 nested functions: the inner function :math:`y - (mx + b)` and the outer function :math:`x^2`.
 
-在我们的代价函数中有两个可控参数（系数）：权重 :math:`m` 和偏置 :math:`b`。由于我们需要考虑这两个参数各自对最终预测结果产生的影响，所以我们采用偏导数来进行分析。
+在我们的成本函数中有两个可控参数（系数）：权重 :math:`m` 和偏置 :math:`b`。由于我们需要考虑这两个参数各自对最终预测结果产生的影响，所以我们采用偏导数来进行分析。
 
 Returning to our cost function:
 
-回到我们的代价函数：
+回到我们的成本函数：
 
 .. math::
 
@@ -212,7 +212,7 @@ And then using the :ref:`chain_rule` which states:
 
 We then plug in each of the parts to get the following derivatives
 
-将前面求得的基本函数导数代入其中得到（复合函数）导数：
+将前面求得的基本函数导数代入其中得到（成本函数关于权重 :math:`m` 的）导数：
 
 .. math::
 
@@ -222,7 +222,7 @@ We then plug in each of the parts to get the following derivatives
 
 We can calculate the gradient of this cost function as:
 
-我们可以通过如下形式计算代价函数的梯度：
+我们可以通过如下形式计算成本函数的梯度：
 
 .. math::
   \begin{align}
@@ -247,7 +247,7 @@ We can calculate the gradient of this cost function as:
 
 To solve for the gradient, we iterate through our data points using our new weight and bias values and take the average of the partial derivatives. The resulting gradient tells us the slope of our cost function at our current position (i.e. weight and bias) and the direction we should update to reduce our cost function (we move in the direction opposite the gradient). The size of our update is controlled by the :ref:`learning rate <glossary_learning_rate>`.
 
-为了求解梯度，我们不断使用新的权重和偏差值遍历所有数据点（样本数据），并取偏导数的平均值。通过此时梯度结果可知代价函数在当前位置的斜率（权重和偏置）以及应该更新以减少代价函数的方向（我们朝梯度反方向移动）。（权重和偏置）更新的步进值由 :ref:`learning rate（学习率）控制。
+为了求解梯度，我们不断使用新的权重和偏差值遍历所有数据点（样本数据），并取偏导数的平均值。通过此时梯度结果可知成本函数在当前位置的斜率（权重和偏置）以及应该更新以减少成本函数的方向（我们朝梯度反方向移动）。（权重和偏置）更新的步进值由 :ref:`learning rate` （学习率）控制。
 
 ::
 
@@ -273,12 +273,16 @@ To solve for the gradient, we iterate through our data points using our new weig
 
 .. _simple_linear_regression_training:
 
-Training
---------
+Training（训练）
+---------------
 
 Training a model is the process of iteratively improving your prediction equation by looping through the dataset multiple times, each time updating the weight and bias values in the direction indicated by the slope of the cost function (gradient). Training is complete when we reach an acceptable error threshold, or when subsequent training iterations fail to reduce our cost.
 
+训练模型的过程是指通过多次遍历整个数据集的方式，循环改进预测函数。每次循环中，都会根据成本函数（梯度）的斜率指示的方向更新权重和偏置值。训练完成的标志是我们达到可接受的误差阈值，或者后续训练迭代无法进一步降低我们的成本为止。
+
 Before training we need to initialize our weights (set default values), set our :ref:`hyperparameters <glossary_hyperparameters>` (learning rate and number of iterations), and prepare to log our progress over each iteration.
+
+开始训练之前我们需要初始化权重（设置默认值），设置:ref:`hyperparameters` 超参数（学习率和迭代次数），以及记录每次迭代的调整信息。
 
 .. rubric:: Code
 
@@ -301,10 +305,12 @@ Before training we need to initialize our weights (set default values), set our 
       return weight, bias, cost_history
 
 
-Model evaluation
-----------------
+Model evaluation（模型评估）
+---------------------------
 
 If our model is working, we should see our cost decrease after every iteration.
+
+模型开始训练时，我们需要观察每次迭代后成本减小情况。
 
 .. rubric:: Logging
 
@@ -337,16 +343,20 @@ If our model is working, we should see our cost decrease after every iteration.
     :align: center
 
 
-Summary
--------
+Summary（总结）
+--------------
 
 By learning the best values for weight (.46) and bias (.25), we now have an equation that predicts future sales based on radio advertising investment.
+
+通过学习到的权重（.46）和偏置（.25），我们拥有了一个可以通过电台广告投入来预测未来销售数的函数。
 
 .. math::
 
   Sales = .46 Radio + .025
 
 How would our model perform in the real world? I’ll let you think about it :)
+
+我们的模型在现实世界中会有怎样的表现呢？这个问题我留给你思考一下 :)
 
 
 
