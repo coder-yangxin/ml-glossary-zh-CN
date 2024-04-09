@@ -360,10 +360,12 @@ How would our model perform in the real world? I’ll let you think about it :)
 
 
 
-Multivariable regression
-========================
+Multivariable regression（多元回归）
+===================================
 
 Let’s say we are given `data <http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv>`_ on TV, radio, and newspaper advertising spend for a list of companies, and our goal is to predict sales in terms of units sold.
+
+假定我们获得以下数据集 `data <http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv>`_ ，数据记录了一系列公司在TV（电视），radio（电台），newpaper（报纸）上的广告开支，我们的最终目标是预测以销售的Units为单位的销量。
 
 +----------+-------+-------+------+-------+
 | Company  | TV    | Radio | News | Units |
@@ -378,20 +380,25 @@ Let’s say we are given `data <http://www-bcf.usc.edu/~gareth/ISL/Advertising.c
 +----------+-------+-------+------+-------+
 
 
-Growing complexity
-------------------
+Growing complexity（复杂度增加）
+-------------------------------
 As the number of features grows, the complexity of our model increases and it becomes increasingly difficult to visualize, or even comprehend, our data.
+
+随着特征数量的增长，模型的复杂性也随之增加，这就使得数据的可视化乃至理解变得越来越困难。
 
 .. image:: images/linear_regression_3d_plane_mlr.png
     :align: center
 
 One solution is to break the data apart and compare 1-2 features at a time. In this example we explore how Radio and TV investment impacts Sales.
 
+一种解决方案是将数据拆分开来，一次对比1-2个特征。在这个例子中，我们将探讨电台和电视投资如何影响销量。
 
-Normalization
--------------
+Normalization（归一化）
+----------------------
 
 As the number of features grows, calculating gradient takes longer to compute. We can speed this up by "normalizing" our input data to ensure all values are within the same range. This is especially important for datasets with high standard deviations or differences in the ranges of the attributes. Our goal now will be to normalize our features so they are all in the range -1 to 1.
+
+随着特征数量的增多，计算梯度所需的时间也会变长。为了加快这一过程，我们可以通过对输入数据进行“归一化”来确保所有数值都在同一范围内。这对于具有高标准差或属性范围差异大的数据集尤为重要。我们现在的目标是将特征归一化，使其都落在-1到1的范围内。
 
 .. rubric:: Code
 
