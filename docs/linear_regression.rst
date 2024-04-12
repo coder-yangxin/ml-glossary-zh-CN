@@ -523,7 +523,7 @@ Gradient descent（梯度下降）
 
 Again using the :ref:`chain_rule` we can compute the gradient--a vector of partial derivatives describing the slope of the cost function for each weight.
 
-我们再次使用 :ref:`链式规则`计算梯度--一个描述代价函数对于每个权重斜率的偏导数向量。
+我们再次使用 :ref:`链式规则` 计算梯度--一个描述代价函数对于每个权重斜率的偏导数向量。
 
 .. math::
 
@@ -582,6 +582,8 @@ The gradient descent code above has a lot of duplication. Can we improve it some
 
 We use the same formula as above, but instead of operating on a single feature at a time, we use matrix multiplication to operative on all features and weights simultaneously. We replace the :math:`x_i` terms with a single feature matrix :math:`X`.
 
+我们采用与上述相同的公式，但是不再逐个操作单个特征，而是通过矩阵乘法同时对所有特征和权重进行运算。我们将单个特征项x_i替换为一个特征矩阵X
+
 .. math::
 
   gradient = -X(targets - predictions)
@@ -622,8 +624,11 @@ We use the same formula as above, but instead of operating on a single feature a
 
       #3 Transpose features from (200, 3) to (3, 200)
       # So we can multiply w the (200,1)  error matrix.
+      # 因此我们可以计算权重矩阵和(200,1)误差矩阵的点积
       # Returns a (3,1) matrix holding 3 partial derivatives --
+      # 返回一个包含3个偏导的(3,1)矩阵：(3,200)@(200,1)->(3,1)
       # one for each feature -- representing the aggregate
+      # 每个偏导数对应一个特征 -- 代表所有样本数据在代价函数上的整体斜率
       # slope of the cost function across all observations
       gradient = np.dot(-X.T,  error)
 
@@ -639,16 +644,23 @@ We use the same formula as above, but instead of operating on a single feature a
       return weights
 
 
-Bias term
----------
+Bias term（偏置项）
+------------------
 
 Our train function is the same as for simple linear regression, however we're going to make one final tweak before running: add a :ref:`bias term <glossary_bias_term>` to our feature matrix.
 
+我们的训练函数同简单线性回归相同，但在训练之前我们还需要做一些细微调整：添加 :ref:`偏置项` 到我们的特征矩阵。
+
 In our example, it's very unlikely that sales would be zero if companies stopped advertising. Possible reasons for this might include past advertising, existing customer relationships, retail locations, and salespeople. A bias term will help us capture this base case.
+
+在我们的案列中，即使公司停止广告投入对应的销量也不太可能为零。可能原因包括过去的广告活动、已有的客户关系、
+零售地点以及销售人员等。偏置项可以帮助我们覆盖这些基础场景。
 
 .. rubric:: Code
 
 Below we add a constant 1 to our features matrix. By setting this value to 1, it turns our bias term into a constant.
+
+下面我们添加常量1到我们的特征矩阵。通过将这个值设置为1，我们的偏置项变成了一个常数
 
 ::
 
@@ -656,10 +668,12 @@ Below we add a constant 1 to our features matrix. By setting this value to 1, it
   features = np.append(bias, features, axis=1)
 
 
-Model evaluation
-----------------
+Model evaluation（模型评估）
+---------------------------
 
 After training our model through 1000 iterations with a learning rate of .0005, we finally arrive at a set of weights we can use to make predictions:
+
+通过学习率.0005和1000次迭代训练模型，最终我们得到了可以用来预测的权重集合：
 
 .. math::
 
