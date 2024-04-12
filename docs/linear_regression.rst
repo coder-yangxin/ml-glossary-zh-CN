@@ -406,10 +406,14 @@ As the number of features grows, calculating gradient takes longer to compute. W
 
   For each feature column {
       #1 Subtract the mean of the column (mean normalization)
+      #1 减去列的均值（均值归一化）
       #2 Divide by the range of the column (feature scaling)
+      #2 除以列的区间值（特征缩放）
   }
 
 Our input is a 200 x 3 matrix containing TV, Radio, and Newspaper data. Our output is a normalized matrix of the same shape with all values between -1 and 1.
+
+我们的输入是一个形状 200 * 3 的矩阵，包括电视，电台和报纸数据。我们的输出是一个形状相同且所有数据范围在[-1,1]的归一化矩阵。
 
 ::
 
@@ -420,6 +424,8 @@ Our input is a 200 x 3 matrix containing TV, Radio, and Newspaper data. Our outp
 
       We transpose the input matrix, swapping
       cols and rows to make vector math easier
+      我们对输入矩阵进行转置，交换
+      列和行以简化向量运算
       **
 
       for feature in features.T:
@@ -438,12 +444,16 @@ Our input is a 200 x 3 matrix containing TV, Radio, and Newspaper data. Our outp
 
   **Matrix math**. Before we continue, it's important to understand basic :doc:`linear_algebra` concepts as well as numpy functions like `numpy.dot() <https://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html>`_.
 
+  **矩阵数学**。了解 :doc:`线性代数` 的概念以及 numpy 库的函数例如`numpy.dot() <https://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html>`_ 对于后续学习课程非常重要。
+
 .. _multiple_linear_regression_predict:
 
-Making predictions
-------------------
+Making predictions（做出预测）
+-----------------------------
 
 Our predict function outputs an estimate of sales given our current weights (coefficients) and a company's TV, radio, and newspaper spend. Our model will try to identify weight values that most reduce our cost function.
+
+我们的预测函数会根据权重（系数）和一个公司的电视，电台以及报纸投入输出一个销量的估算结果。我们的模型将会试图找到可以减少代价函数的权重值。
 
 .. math::
 
@@ -461,8 +471,8 @@ Our predict function outputs an estimate of sales given our current weights (coe
     return predictions
 
 
-Initialize weights
-------------------
+Initialize weights（初始化）
+---------------------------
 
 ::
 
@@ -476,9 +486,11 @@ Initialize weights
   ])
 
 
-Cost function
--------------
+Cost function（代价函数）
+------------------------
 Now we need a cost function to audit how our model is performing. The math is the same, except we swap the :math:`mx + b` expression for :math:`W_1 x_1 + W_2 x_2 + W_3 x_3`. We also divide the expression by 2 to make derivative calculations simpler.
+
+现在我们需要代价函数来评估我们模型的表现。数学表达式相近，只是将 :math:`mx + b` 替换成 :math:`W_1 x_1 + W_2 x_2 + W_3 x_3`。我们还需要将表达式除以2来简化求导过程。
 
 .. math::
 
@@ -498,16 +510,20 @@ Now we need a cost function to audit how our model is performing. The math is th
       predictions = predict(features, weights)
 
       # Matrix math lets use do this without looping
+      # 矩阵数学可以不使用循环完成平方差计算
       sq_error = (predictions - targets)**2
 
       # Return average squared error among predictions
+      # 返回同预测结果间的均方误差
       return 1.0/(2*N) * sq_error.sum()
 
 
-Gradient descent
-----------------
+Gradient descent（梯度下降）
+---------------------------
 
 Again using the :ref:`chain_rule` we can compute the gradient--a vector of partial derivatives describing the slope of the cost function for each weight.
+
+我们再次使用 :ref:`链式规则`计算梯度--一个描述代价函数对于每个权重斜率的偏导数向量。
 
 .. math::
 
@@ -528,17 +544,21 @@ Again using the :ref:`chain_rule` we can compute the gradient--a vector of parti
       predictions = predict(features, weights)
 
       #Extract our features
+      #提取特征数据
       x1 = features[:,0]
       x2 = features[:,1]
       x3 = features[:,2]
 
       # Use dot product to calculate the derivative for each weight
+      # 使用点积计算每个权重的导数
       d_w1 = -x1.dot(targets - predictions)
       d_w2 = -x2.dot(targets - predictions)
       d_w2 = -x2.dot(targets - predictions)
 
       # Multiply the mean derivative by the learning rate
+      # 用学习率乘以导数的均值
       # and subtract from our weights (remember gradient points in direction of steepest ASCENT)
+      # 并且用当前权重减去它（记住最陡峭上升方向的梯度点）
       weights[0][0] -= (lr * np.mean(d_w1))
       weights[1][0] -= (lr * np.mean(d_w2))
       weights[2][0] -= (lr * np.mean(d_w3))
@@ -547,12 +567,16 @@ Again using the :ref:`chain_rule` we can compute the gradient--a vector of parti
 
 And that's it! Multivariate linear regression.
 
+这就是多元线性回归！
 
 
-Simplifying with matrices
--------------------------
+
+Simplifying with matrices（简化矩阵）
+------------------------------------
 
 The gradient descent code above has a lot of duplication. Can we improve it somehow? One way to refactor would be to loop through our features and weights--allowing our function to handle any number of features. However there is another even better technique: *vectorized gradient descent*.
+
+上面梯度下降代码中有许多重复计算。那么我们可以怎样优化呢？
 
 .. rubric:: Math
 
