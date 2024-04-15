@@ -1,21 +1,27 @@
 .. _gradient_descent:
 
-================
-Gradient Descent
-================
+===========================
+Gradient Descent（梯度下降）
+===========================
 
 Gradient descent is an optimization algorithm used to minimize some function by iteratively moving in the direction of steepest descent as defined by the negative of the gradient. In machine learning, we use gradient descent to update the :ref:`parameters <glossary_parameters>` of our model. Parameters refer to coefficients in :doc:`linear_regression` and :ref:`weights <nn_weights>` in neural networks.
 
+梯度下降是一种优化算法，通过向下降最快方向（梯度反方向）迭代移动来最小化函数。在机器学习中，我们利用梯度下降来更新模型的 :ref:`参数`。参数指 :doc:`线性回归` 中的系数或神经网络中的 :ref:`权重` 。
 
-Introduction
-============
+
+Introduction（介绍）
+===================
 
 Consider the 3-dimensional graph below in the context of a cost function. Our goal is to move from the mountain in the top right corner (high cost) to the dark blue sea in the bottom left (low cost). The arrows represent the direction of steepest descent (negative gradient) from any given point--the direction that decreases the cost function as quickly as possible. `Source <http://www.adalta.it/Pages/-GoldenSoftware-Surfer-010.asp>`_
+
+思考一下代价函数背景下的三维图。我们的目标是从右上角的山顶(高代价)移动到左下角的深蓝色大海(低代价)。箭头代表任一给定点位下降最快的方向（梯度负方向）--尽可能快的减小代价函数的方向。`Source <http://www.adalta.it/Pages/-GoldenSoftware-Surfer-010.asp>`_
 
 .. image:: images/gradient_descent.png
     :align: center
 
 Starting at the top of the mountain, we take our first step downhill in the direction specified by the negative gradient. Next we recalculate the negative gradient (passing in the coordinates of our new point) and take another step in the direction it specifies. We continue this process iteratively until we get to the bottom of our graph, or to a point where we can no longer move downhill--a local minimum. `image source <https://youtu.be/5u0jaA3qAGk>`_.
+
+
 
 .. image:: images/gradient_descent_demystified.png
     :align: center
