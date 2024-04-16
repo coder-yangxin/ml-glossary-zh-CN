@@ -14,26 +14,30 @@ Introduction（介绍）
 
 Consider the 3-dimensional graph below in the context of a cost function. Our goal is to move from the mountain in the top right corner (high cost) to the dark blue sea in the bottom left (low cost). The arrows represent the direction of steepest descent (negative gradient) from any given point--the direction that decreases the cost function as quickly as possible. `Source <http://www.adalta.it/Pages/-GoldenSoftware-Surfer-010.asp>`_
 
-思考一下代价函数背景下的三维图。我们的目标是从右上角的山顶(高代价)移动到左下角的深蓝色大海(低代价)。箭头代表任一给定点位下降最快的方向（梯度负方向）--尽可能快的减小代价函数的方向。`Source <http://www.adalta.it/Pages/-GoldenSoftware-Surfer-010.asp>`_
+思考一下代价函数背景下的三维图。我们的目标是从右上角的山顶(高代价)移动到左下角的深蓝色大海(低代价)。箭头代表任一给定点位下降最快的方向（梯度反方向）--尽可能快的减小代价函数的方向。`Source <http://www.adalta.it/Pages/-GoldenSoftware-Surfer-010.asp>`_
 
 .. image:: images/gradient_descent.png
     :align: center
 
 Starting at the top of the mountain, we take our first step downhill in the direction specified by the negative gradient. Next we recalculate the negative gradient (passing in the coordinates of our new point) and take another step in the direction it specifies. We continue this process iteratively until we get to the bottom of our graph, or to a point where we can no longer move downhill--a local minimum. `image source <https://youtu.be/5u0jaA3qAGk>`_.
 
+从山顶开始，我们按照反向梯度所指示的方向迈出下坡的第一步。接下来我们再次计算（通过新点位的坐标）反向梯度并且按照指定方向迈出另一步。我们以迭代的方式执行上述步骤直到我们到达地图底部，或者到达一个不能再下降的点位--局部最小值。 `image source <https://youtu.be/5u0jaA3qAGk>`_。
+
 
 
 .. image:: images/gradient_descent_demystified.png
     :align: center
 
-Learning rate
-=============
+Learning rate（学习率）
+======================
 
 The size of these steps is called the *learning rate*. With a high learning rate we can cover more ground each step, but we risk overshooting the lowest point since the slope of the hill is constantly changing. With a very low learning rate, we can confidently move in the direction of the negative gradient since we are recalculating it so frequently. A low learning rate is more precise, but calculating the gradient is time-consuming, so it will take us a very long time to get to the bottom.
 
+步长的大小称为*学习率*。通过高学习率我们每步可以覆盖更大的区域，但由于山坡斜率不断变化我们可能错过最低点。通过非常低的学习率，由于频繁地重新计算反向梯度，我们可以大胆地朝着该方向前进（不怕错过最低点）。低学习率可以更精确，但计算梯度却相当耗时，因此我们需要很长时间才能到达谷底。
 
-Cost function
-=============
+
+Cost function（代价函数）
+========================
 
 A :ref:`cost_function` tells us "how good" our model is at making predictions for a given set of parameters. The cost function has its own curve and its own gradients. The slope of this curve tells us how to update our parameters to make the model more accurate.
 
