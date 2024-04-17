@@ -33,7 +33,7 @@ Learning rate（学习率）
 
 The size of these steps is called the *learning rate*. With a high learning rate we can cover more ground each step, but we risk overshooting the lowest point since the slope of the hill is constantly changing. With a very low learning rate, we can confidently move in the direction of the negative gradient since we are recalculating it so frequently. A low learning rate is more precise, but calculating the gradient is time-consuming, so it will take us a very long time to get to the bottom.
 
-步长的大小称为*学习率*。通过高学习率我们每步可以覆盖更大的区域，但由于山坡斜率不断变化我们可能错过最低点。通过非常低的学习率，由于频繁地重新计算反向梯度，我们可以大胆地朝着该方向前进（不怕错过最低点）。低学习率可以更精确，但计算梯度却相当耗时，因此我们需要很长时间才能到达谷底。
+步长的大小称为 *学习率* 。通过高学习率我们每步可以覆盖更大的区域，但由于山坡斜率不断变化我们可能错过最低点。通过非常低的学习率，由于频繁地重新计算反向梯度，我们可以大胆地朝着该方向前进（不怕错过最低点）。低学习率可以更精确，但计算梯度却相当耗时，因此我们需要很长时间才能到达谷底。
 
 
 Cost function（代价函数）
@@ -41,21 +41,29 @@ Cost function（代价函数）
 
 A :ref:`cost_function` tells us "how good" our model is at making predictions for a given set of parameters. The cost function has its own curve and its own gradients. The slope of this curve tells us how to update our parameters to make the model more accurate.
 
+通过 :ref:`代价函数` 我们可知模型在给定参数集下预测结果的优劣程度。代价函数拥有自身的曲线和对应的梯度。该曲线的斜率告诉我们如何更新参数以提高模型的准确性。
 
-Step-by-step
-============
+
+Step-by-step（逐步）
+===================
 
 Now let's run gradient descent using our new cost function. There are two parameters in our cost function we can control: :math:`m` (weight) and :math:`b` (bias). Since we need to consider the impact each one has on the final prediction, we need to use partial derivatives. We calculate the partial derivatives of the cost function with respect to each parameter and store the results in a gradient.
+
+现在让我们使用新的代价函数运行梯度下降法。在我们的代价函数中有两个可控参数：:math:`m` （权重）和 :math:`b` （偏置）。由于我们需要考虑每个参数对最终预测的影响，所以需要使用偏导数。我们计算代价函数关于每个参数的偏导数，并将结果存储在一个梯度向量中。
 
 .. rubric:: Math
 
 Given the cost function:
+
+给定代价函数
 
 .. math::
 
   f(m,b) =  \frac{1}{N} \sum_{i=1}^{N} (y_i - (mx_i + b))^2
 
 The gradient can be calculated as:
+
+梯度计算方式：
 
 .. math::
 
@@ -72,6 +80,7 @@ The gradient can be calculated as:
 
 To solve for the gradient, we iterate through our data points using our new :math:`m` and :math:`b` values and compute the partial derivatives. This new gradient tells us the slope of our cost function at our current position (current parameter values) and the direction we should move to update our parameters. The size of our update is controlled by the learning rate.
 
+为了处理梯度，我们会使用更新后的 :math:`m` 和 :math:`b` 值迭代数据点，并计算偏导数。这个新的梯度告知我们在当前点位（当前参数值）的代价函数斜率，以及我们应该朝哪个方向移动以更新参数。更新的幅度则由学习率（learning rate）控制。
 
 .. rubric:: Code
 
