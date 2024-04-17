@@ -1,13 +1,13 @@
 .. _logistic_regression:
 
-==============================
+===============================
 Logistic Regression（逻辑回归）
-==============================
+===============================
 
 .. contents:: :local:
 
 Introduction（引言）
-===================
+====================
 
 Logistic regression is a classification algorithm used to assign observations to a discrete set of classes. Unlike linear regression which outputs continuous number values, logistic regression transforms its output using the logistic sigmoid function to return a probability value which can then be mapped to two or more discrete classes.
 
@@ -28,7 +28,7 @@ Given data on time spent studying and exam scores. :doc:`linear_regression` and 
 
   - **逻辑回归** 可以帮助我们预测学生考试是否通过。逻辑回归预测结果是离散的（仅允许指定数值或类别）。我们也可以查看模型分类类别的概率分数。
 
-Types of logistic regression（逻辑回归的类型）
+Types of logistic regression（逻辑回归的分类）
 ------------------------------------------
 
   - Binary (Pass/Fail)
