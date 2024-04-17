@@ -1,36 +1,47 @@
 .. _logistic_regression:
 
-===================
-Logistic Regression
-===================
+==============================
+Logistic Regression（逻辑回归）
+==============================
 
 .. contents:: :local:
 
-Introduction
-============
+Introduction（引言）
+===================
 
 Logistic regression is a classification algorithm used to assign observations to a discrete set of classes. Unlike linear regression which outputs continuous number values, logistic regression transforms its output using the logistic sigmoid function to return a probability value which can then be mapped to two or more discrete classes.
 
-Comparison to linear regression
--------------------------------
+逻辑回归是用于将观测样本标识到一组离散类别的分类算法。有别于输出连续数值的线性回归，归逻辑回归使用逻辑曲线函将结果映射输出到两个或多个离散类别的概率值。
+
+Comparison to linear regression（对比线性回归）
+---------------------------------------------
 
 Given data on time spent studying and exam scores. :doc:`linear_regression` and logistic regression can predict different things:
 
+给定一组学习时间和考试分数的数据集， :doc:`线性回归` 和逻辑回归可以预测不同的内容:
+
   - **Linear Regression** could help us predict the student's test score on a scale of 0 - 100. Linear regression predictions are continuous (numbers in a range).
+
+  - **线性回归** 可以帮助我们预测分数范围0-100的学生测试成绩。线性回归预测结果是连续的（区间数值）。
 
   - **Logistic Regression** could help use predict whether the student passed or failed. Logistic regression predictions are discrete (only specific values or categories are allowed). We can also view probability scores underlying the model's classifications.
 
-Types of logistic regression
-----------------------------
+  - **逻辑回归** 可以帮助我们预测学生考试是否通过。逻辑回归预测结果是离散的（仅允许指定数值或类别）。我们也可以查看模型分类类别的概率分数。
+
+Types of logistic regression（逻辑回归的类型）
+------------------------------------------
 
   - Binary (Pass/Fail)
+  - 二元逻辑回归（通过/未通过）
   - Multi (Cats, Dogs, Sheep)
+  - 多元逻辑回归（猫，狗，羊）
   - Ordinal (Low, Medium, High)
+  - 有序逻辑回归（低，中，高）
 
 
 
-Binary logistic regression
-==========================
+Binary logistic regression（二元逻辑回归）
+========================================
 
 Say we're given `data <http://scilab.io/wp-content/uploads/2016/07/data_classification.csv>`_ on student exam results and our goal is to predict whether a student will pass or fail based on number of hours slept and hours spent studying. We have two features (hours slept, hours studied) and two classes: passed (1) and failed (0).
 
