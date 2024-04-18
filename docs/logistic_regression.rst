@@ -18,7 +18,7 @@ Comparison to linear regression（对比线性回归）
 
 Given data on time spent studying and exam scores. :doc:`linear_regression` and logistic regression can predict different things:
 
-给定一组学习时间和考试分数的数据集， :doc:`线性回归` 和逻辑回归可以预测不同的内容:
+给定一组学习时间和考试成绩的数据集， :doc:`线性回归` 和逻辑回归可以预测不同的内容:
 
   - **Linear Regression** could help us predict the student's test score on a scale of 0 - 100. Linear regression predictions are continuous (numbers in a range).
 
@@ -45,6 +45,8 @@ Binary logistic regression（二元逻辑回归）
 
 Say we're given `data <http://scilab.io/wp-content/uploads/2016/07/data_classification.csv>`_ on student exam results and our goal is to predict whether a student will pass or fail based on number of hours slept and hours spent studying. We have two features (hours slept, hours studied) and two classes: passed (1) and failed (0).
 
+假设给定学生考试结果的 `数据集 <http://scilab.io/wp-content/uploads/2016/07/data_classification.csv>`_，我们的目标是通过睡眠时间和学习时间来预测他们是否通过考试。我们有两种特征（睡眠时间，学习时间）和两种类别：通过（1）和未通过（0）。
+
 
 +--------------+-------------+-------------+
 | **Studied**  | **Slept**   | **Passed**  |
@@ -60,14 +62,18 @@ Say we're given `data <http://scilab.io/wp-content/uploads/2016/07/data_classifi
 
 Graphically we could represent our data with a scatter plot.
 
+我们可以用散点图的形式呈现我们的数据。
+
 .. image:: images/logistic_regression_exam_scores_scatter.png
     :align: center
 
 
-Sigmoid activation
-------------------
+Sigmoid activation（Sigmoid激活）
+---------------------------------
 
 In order to map predicted values to probabilities, we use the :ref:`sigmoid <activation_sigmoid>` function. The function maps any real value into another value between 0 and 1. In machine learning, we use sigmoid to map predictions to probabilities.
+
+为了完成从预测值到概率的映射，我们使用 :ref:`sigmoid <activation_sigmoid>` 函数。该函数可以将任意真实值映射到0-1的区间。在机器学习中，我们使用sigmoid完成预测值到概率的映射。
 
 .. rubric:: Math
 
@@ -78,8 +84,11 @@ In order to map predicted values to probabilities, we use the :ref:`sigmoid <act
 .. note::
 
   - :math:`s(z)` = output between 0 and 1 (probability estimate)
+  - :math:`s(z)` = 输出0-1的值（概率估算）
   - :math:`z` = input to the function (your algorithm's prediction e.g. mx + b)
+  - :math:`z` = 函数输入（你的函数预测 例：mx + b）
   - :math:`e` = base of natural log
+  - :math:`e` = 自然对数的底数
 
 .. rubric:: Graph
 
@@ -95,10 +104,12 @@ In order to map predicted values to probabilities, we use the :ref:`sigmoid <act
 .. could potentially link to another file.. http://docutils.sourceforge.net/docs/ref/rst/directives.html#include
 
 
-Decision boundary
------------------
+Decision boundary（决策边界）
+----------------------------
 
 Our current prediction function returns a probability score between 0 and 1. In order to map this to a discrete class (true/false, cat/dog), we select a threshold value or tipping point above which we will classify values into class 1 and below which we classify values into class 2.
+
+我们的预测函数返回一个0-1的概率值。为了完成该值到离散类别的映射（真/假，猫/狗），我们选择一个阈值或临界点，高于该值时我们将数值分类为类别1；低于该值时则将数值分类为类别2。
 
 .. math::
 
@@ -107,18 +118,24 @@ Our current prediction function returns a probability score between 0 and 1. In 
 
 For example, if our threshold was .5 and our prediction function returned .7, we would classify this observation as positive. If our prediction was .2 we would classify the observation as negative. For logistic regression with multiple classes we could select the class with the highest predicted probability.
 
+例如：如果我们的阈值是0.5并且预测函数返回0.7，我们应该将样本归类到正例。如果我们的预测值是0.2我们应该将样本归类到反例。针对多类别的逻辑回归我们应该选择最高预测概率的类别。
+
 .. image:: images/logistic_regression_sigmoid_w_threshold.png
     :align: center
 
 
-Making predictions
-------------------
+Making predictions（预测）
+-------------------------
 
 Using our knowledge of sigmoid functions and decision boundaries, we can now write a prediction function. A prediction function in logistic regression returns the probability of our observation being positive, True, or "Yes". We call this class 1 and its notation is :math:`P(class=1)`. As the probability gets closer to 1, our model is more confident that the observation is in class 1.
+
+利用sigmoid函数和决策边界，我们可以写出预测函数。逻辑回归的预测函数返回的是样本为正，真或是的概率。我们称为类别1，符号 :math:`P(class=1)`。预测概率越接近1，我们的模型就越认为样本属于类别1.
 
 .. rubric:: Math
 
 Let's use the same :ref:`multiple linear regression <multiple_linear_regression_predict>` equation from our linear regression tutorial.
+
+让我们使用线性回归章节中相同的 :ref:`多元线性回归` 方程
 
 .. math::
 
@@ -126,15 +143,21 @@ Let's use the same :ref:`multiple linear regression <multiple_linear_regression_
 
 This time however we will transform the output using the sigmoid function to return a probability value between 0 and 1.
 
+同时我们将使用sigmoid函数来转换（多元线性回归）输出值，使其返回一个介于0和1之间的概率值。
+
 .. math::
 
   P(class=1) = \frac{1} {1 + e^{-z}}
 
 If the model returns .4 it believes there is only a 40% chance of passing. If our decision boundary was .5, we would categorize this observation as "Fail.""
 
+如果模型返回0.4表示仅有40%的通过几率。如果我们的决策边界是0.5，我们将样本归类到"Fail.""
+
 .. rubric:: Code
 
 We wrap the sigmoid function over the same prediction function we used in :ref:`multiple linear regression <multiple_linear_regression_predict>`
+
+我们将sigmoid函数包装在 :ref:`多元线性回归 <multiple_linear_regression_predict>` 章节中相同的预测函数中
 
 .. literalinclude:: ../code/logistic_regression.py
     :language: python
