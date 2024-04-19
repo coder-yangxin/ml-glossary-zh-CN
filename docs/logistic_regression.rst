@@ -118,7 +118,7 @@ Our current prediction function returns a probability score between 0 and 1. In 
 
 For example, if our threshold was .5 and our prediction function returned .7, we would classify this observation as positive. If our prediction was .2 we would classify the observation as negative. For logistic regression with multiple classes we could select the class with the highest predicted probability.
 
-例如：如果我们的阈值是0.5并且预测函数返回0.7，我们应该将样本归类到正例。如果我们的预测值是0.2我们应该将样本归类到反例。针对多类别的逻辑回归我们应该选择最高预测概率的类别。
+例如：如果我们的阈值是0.5并且预测函数返回0.7，我们应该将样本归类到正例。如果我们的预测值是0.2我们应该将样本归类到反例。针对多类别的逻辑回归我们应该选择预测概率最高的类别。
 
 .. image:: images/logistic_regression_sigmoid_w_threshold.png
     :align: center
@@ -135,7 +135,7 @@ Using our knowledge of sigmoid functions and decision boundaries, we can now wri
 
 Let's use the same :ref:`multiple linear regression <multiple_linear_regression_predict>` equation from our linear regression tutorial.
 
-让我们使用线性回归章节中相同的 :ref:`多元线性回归` 方程
+让我们使用线性回归章节中相同的多元线性回归方程 :ref:`multiple linear regression <multiple_linear_regression_predict>` 
 
 .. math::
 
@@ -157,31 +157,39 @@ If the model returns .4 it believes there is only a 40% chance of passing. If ou
 
 We wrap the sigmoid function over the same prediction function we used in :ref:`multiple linear regression <multiple_linear_regression_predict>`
 
-我们将sigmoid函数包装在 :ref:`多元线性回归 <multiple_linear_regression_predict>` 章节中相同的预测函数中
+我们将sigmoid函数包装在多元线性回归章节中相同的预测函数中 :ref:`multiple linear regression <multiple_linear_regression_predict>` 
 
 .. literalinclude:: ../code/logistic_regression.py
     :language: python
     :pyobject: predict
 
 
-Cost function
--------------
+Cost function（成本函数）
+------------------------
 
 Unfortunately we can't (or at least shouldn't) use the same cost function :ref:`mse` as we did for linear regression. Why? There is a great math explanation in chapter 3 of Michael Neilson's deep learning book [5]_, but for now I'll simply say it's because our prediction function is non-linear (due to sigmoid transform). Squaring this prediction as we do in MSE results in a non-convex function with many local minimums. If our cost function has many local minimums, gradient descent may not find the optimal global minimum.
+
+不幸的是我们不能（至少不应该）使用同线性回归相同的成本函数 :ref:`mse` 。为何？ Michael Neilson在其深度学习书籍第3章中从数学角度很好的解释了这个问题 [5]_ ，介于此处预测函数是非线性的（受sigmoid变换的影响）我只能做一些简要说明。如果我们像在MSE中那样对这种预测结果进行平方处理会得到一个存在许多局部最小值的非凸函数（预测值趋近0或1时导数都趋于0）。如果我们的成本函数包含多个局部最小值，那么梯度下降法可能无法找到最优的全局最小值。
 
 .. rubric:: Math
 
 Instead of Mean Squared Error, we use a cost function called :ref:`loss_cross_entropy`, also known as Log Loss. Cross-entropy loss can be divided into two separate cost functions: one for :math:`y=1` and one for :math:`y=0`.
+
+我们并不使用均方误差，而是采用交叉熵损失 :ref:`loss_cross_entropy` 的成本函数，也被称为对数损失。交叉熵损失可以被分解为两个独立的成本函数：一个是针对 :math:y=1 的情况，另一个则是针对 :math:y=0 的情况。
 
 .. image:: images/ng_cost_function_logistic.png
     :align: center
 
 The benefits of taking the logarithm reveal themselves when you look at the cost function graphs for y=1 and y=0. These smooth monotonic functions [7]_ (always increasing or always decreasing) make it easy to calculate the gradient and minimize cost. Image from Andrew Ng's slides on logistic regression [1]_.
 
+当您查看 y=1 和 y=0 的成本函数图时，取对数的好处就会显现出来。利用平滑单调函数 [7]_ （始终单调递增或单调递减）很容易计算梯度和最小损失。图片来自Andrew Ng's有关逻辑回归的幻灯片。
+
 .. image:: images/y1andy2_logistic_function.png
     :align: center
 
 The key thing to note is the cost function penalizes confident and wrong predictions more than it rewards confident and right predictions! The corollary is increasing prediction accuracy (closer to 0 or 1) has diminishing returns on reducing cost due to the logistic nature of our cost function.
+
+关键在于损失函数对模型做出错误预测的惩罚远大于正确预测的奖励！因此，由于我们的损失函数具有逻辑回归特性，预测越精准（预测值更接近0或1）对降低成本的回报越小。
 
 .. rubric:: Above functions compressed into one
 
