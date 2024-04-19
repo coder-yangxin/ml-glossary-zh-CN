@@ -169,13 +169,13 @@ Cost function（成本函数）
 
 Unfortunately we can't (or at least shouldn't) use the same cost function :ref:`mse` as we did for linear regression. Why? There is a great math explanation in chapter 3 of Michael Neilson's deep learning book [5]_, but for now I'll simply say it's because our prediction function is non-linear (due to sigmoid transform). Squaring this prediction as we do in MSE results in a non-convex function with many local minimums. If our cost function has many local minimums, gradient descent may not find the optimal global minimum.
 
-不幸的是我们不能（至少不应该）使用同线性回归相同的成本函数 :ref:`mse` 。为何？ Michael Neilson在其深度学习书籍第3章中从数学角度很好的解释了这个问题 [5]_ ，介于此处预测函数是非线性的（受sigmoid变换的影响）我只能做一些简要说明。如果我们像在MSE中那样对这种预测结果进行平方处理会得到一个存在许多局部最小值的非凸函数（预测值趋近0或1时导数都趋于0）。如果我们的成本函数包含多个局部最小值，那么梯度下降法可能无法找到最优的全局最小值。
+不幸的是我们不能（至少不应该）使用同线性回归相同的成本函数 :ref:`mse` 。为何？ Michael Neilson在其深度学习书籍第3章中从数学角度很好的解释了这个问题 [5]_ ，这里我做一些简要说明，因为我们的预测函数是非线性的（受sigmoid变换的影响）。如果我们像在MSE中那样对这种预测结果进行平方处理会得到一个存在许多局部最小值的非凸函数（预测值趋近0或1时导数都趋于0）。如果我们的成本函数包含多个局部最小值，那么梯度下降法可能无法找到最优的全局最小值。
 
 .. rubric:: Math
 
 Instead of Mean Squared Error, we use a cost function called :ref:`loss_cross_entropy`, also known as Log Loss. Cross-entropy loss can be divided into two separate cost functions: one for :math:`y=1` and one for :math:`y=0`.
 
-我们并不使用均方误差，而是采用交叉熵损失 :ref:`loss_cross_entropy` 的成本函数，也被称为对数损失。交叉熵损失可以被分解为两个独立的成本函数：一个是针对 :math:y=1 的情况，另一个则是针对 :math:y=0 的情况。
+我们不使用均方误差，而是采用交叉熵损失 :ref:`loss_cross_entropy` 的成本函数，也被称为对数损失。交叉熵损失可以被分解为两个独立的成本函数：一个是针对 :math:y=1 的情况，另一个则是针对 :math:y=0 的情况。
 
 .. image:: images/ng_cost_function_logistic.png
     :align: center
