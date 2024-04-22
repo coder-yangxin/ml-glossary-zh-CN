@@ -175,30 +175,32 @@ Unfortunately we can't (or at least shouldn't) use the same cost function :ref:`
 
 Instead of Mean Squared Error, we use a cost function called :ref:`loss_cross_entropy`, also known as Log Loss. Cross-entropy loss can be divided into two separate cost functions: one for :math:`y=1` and one for :math:`y=0`.
 
-我们不使用均方误差，而是采用交叉熵损失 :ref:`loss_cross_entropy` 的成本函数，也被称为对数损失。交叉熵损失可以被分解为两个独立的成本函数：一个是针对 :math:y=1 的情况，另一个则是针对 :math:y=0 的情况。
+我们不使用均方误差，而是采用交叉熵损失 :ref:`loss_cross_entropy` 的成本函数，也被称为对数损失。交叉熵损失可以被分解为两个独立的成本函数：一个是针对 :math:`y=1` 的情况，另一个则是针对 :math:`y=0` 的情况。
 
 .. image:: images/ng_cost_function_logistic.png
     :align: center
 
 The benefits of taking the logarithm reveal themselves when you look at the cost function graphs for y=1 and y=0. These smooth monotonic functions [7]_ (always increasing or always decreasing) make it easy to calculate the gradient and minimize cost. Image from Andrew Ng's slides on logistic regression [1]_.
 
-当您查看 y=1 和 y=0 的成本函数图时，取对数的好处就会显现出来。利用平滑单调函数 [7]_ （始终单调递增或单调递减）很容易计算梯度和最小损失。图片来自Andrew Ng's有关逻辑回归的幻灯片。
+当您查看 y=1 和 y=0 的成本函数图时，取对数的好处就会显现出来。利用平滑单调函数 [7]_ （始终单调递增或单调递减）很容易计算梯度和最小损失。图片来自Andrew Ng's有关逻辑回归的幻灯片 [1]_。
 
 .. image:: images/y1andy2_logistic_function.png
     :align: center
 
 The key thing to note is the cost function penalizes confident and wrong predictions more than it rewards confident and right predictions! The corollary is increasing prediction accuracy (closer to 0 or 1) has diminishing returns on reducing cost due to the logistic nature of our cost function.
 
-关键在于损失函数对模型做出错误预测的惩罚远大于正确预测的奖励！因此，由于我们的损失函数具有逻辑回归特性，预测越精准（预测值更接近0或1）对降低成本的回报越小。
+关键在于损失函数对模型做出错误预测的惩罚远大于正确预测的奖励！由此推论，由于成本函数的对数性质，提高预测精度（更接近 0 或 1）对降低成本的收益递减。
 
-.. rubric:: Above functions compressed into one
+.. rubric:: Above functions compressed into one（上述函数合二为一）
 
 .. image:: images/logistic_cost_function_joined.png
     :align: center
 
 Multiplying by :math:`y` and :math:`(1-y)` in the above equation is a sneaky trick that let's us use the same equation to solve for both y=1 and y=0 cases. If y=0, the first side cancels out. If y=1, the second side cancels out. In both cases we only perform the operation we need to perform.
 
-.. rubric:: Vectorized cost function
+上式中乘以 :math:`y` 和 :math:`(1-y)` 是一个小技巧，让我们可以用同一个等式求解 y=1 和 y=0 的情况。当y=0时，左边被抵消。当y=1时，右边被抵消。这两种场景下我们只需执行必要的运算。
+。
+.. rubric:: Vectorized cost function（损失函数向量）
 
 .. image:: images/logistic_cost_function_vectorized.png
     :align: center
@@ -210,14 +212,18 @@ Multiplying by :math:`y` and :math:`(1-y)` in the above equation is a sneaky tri
     :pyobject: cost_function
 
 
-Gradient descent
-----------------
+Gradient descent（梯度下降）
+---------------------------
 
 To minimize our cost, we use :doc:`gradient_descent` just like before in :doc:`linear_regression`. There are other more sophisticated optimization algorithms out there such as conjugate gradient like :ref:`optimizers_lbfgs`, but you don't have to worry about these. Machine learning libraries like Scikit-learn hide their implementations so you can focus on more interesting things!
+
+为了最小化损失，我们使用同线性回归相同 :doc:`linear_regression` 的梯度下降法 :doc:`gradient_descent` 。还有其他更复杂的优化算法，如共轭梯度算法 :ref:`optimizers_lbfgs`，但你无需担心。类似Scikit-learn的机器学习库隐藏了具体的实现逻辑，你可以更专注感兴趣的事情。
 
 .. rubric:: Math
 
 One of the neat properties of the sigmoid function is its derivative is easy to calculate. If you're curious, there is a good walk-through derivation on stack overflow [6]_. Michael Neilson also covers the topic in chapter 3 of his book.
+
+sigmoid函数的一个显著特征是很容易计算他的导数。如果你实在好奇，那么在stack overflow上可以找到很好的推演过程 [6]_。Michael Neilson也在他书的第3章中解释过该问题。
 
 .. math::
 
@@ -226,6 +232,8 @@ One of the neat properties of the sigmoid function is its derivative is easy to 
   \end{align}
 
 Which leads to an equally beautiful and convenient cost function derivative:
+
+由此推导出同样漂亮简洁的代价函数导数（链式法则 J'(θ) = dJ/dp ⋅ dp/dz ⋅ dz/dw，其中dJ/dp = y/p - (1-y)/(1-p) = y - p ; dp/dz = p(1 - p) ; dz/dw = x）：
 
 .. math::
 
