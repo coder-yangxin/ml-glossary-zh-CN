@@ -233,7 +233,8 @@ sigmoid函数的一个显著特征是很容易计算他的导数。如果你实�
 
 Which leads to an equally beautiful and convenient cost function derivative:
 
-由此推导出同样漂亮简洁的代价函数导数（链式法则 J'(θ) = dJ/dp ⋅ dp/dz ⋅ dz/dw，其中dJ/dp = y/p - (1-y)/(1-p) = y - p ; dp/dz = p(1 - p) ; dz/dw = x）：
+由此推导出同样漂亮简洁的代价函数导数：
+链式法则 J'(θ) = dJ/dp ⋅ dp/dz ⋅ dz/dθ，其中dJ/dp = y/p - (1-y)/(1-p) = (y - p)/p(1 - p)；dp/dz = p(1 - p)；dz/dθ = x；最终-1/m(y - p) ⋅ x：
 
 .. math::
 
