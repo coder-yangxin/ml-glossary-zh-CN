@@ -233,9 +233,7 @@ sigmoid函数的一个显著特征是很容易计算他的导数。如果你实�
 
 Which leads to an equally beautiful and convenient cost function derivative:
 
-由此推导出同样漂亮简洁的代价函数导数：
-
-链式法则 J'(θ) = dJ/dp ⋅ dp/dz ⋅ dz/dθ，其中dJ/dp = y/p - (1-y)/(1-p) = (y - p)/p(1 - p)；dp/dz = p(1 - p)；dz/dθ = x；最终-1/m(y - p) ⋅ x：
+由此推导出同样漂亮简洁的代价函数导数（链式法则 J'(θ) = dJ/dp ⋅ dp/dz ⋅ dz/dθ，其中dJ/dp = y/p - (1-y)/(1-p) = (y - p)/p(1 - p)；dp/dz = p(1 - p)；dz/dθ = x；最终-1/m(y - p) ⋅ x）：
 
 .. math::
 
@@ -244,11 +242,17 @@ Which leads to an equally beautiful and convenient cost function derivative:
 .. note::
 
   - :math:`C'` is the derivative of cost with respect to weights
+  - :math:`C'` 是成本相对权重的导数
   - :math:`y` is the actual class label (0 or 1)
+  - :math:`y` 是真实类别标签（0或1）
   - :math:`s(z)` is your model's prediction
+  - :math:`s(z)` 是你模型的预测结果
   - :math:`x` is your feature or feature vector.
+  - :math:`x` 是你的特征或特征向量
 
 Notice how this gradient is the same as the :ref:`mse` gradient, the only difference is the hypothesis function.
+
+注意这个梯度与 :ref:`mse` 梯度相同，唯一不同的是假设函数。
 
 .. rubric:: Pseudocode
 
@@ -269,18 +273,20 @@ Notice how this gradient is the same as the :ref:`mse` gradient, the only differ
     :pyobject: update_weights
 
 
-Mapping probabilities to classes
---------------------------------
+Mapping probabilities to classes（概率类别映射）
+-----------------------------------------------
 
 The final step is assign class labels (0 or 1) to our predicted probabilities.
 
-.. rubric:: Decision boundary
+最终步骤是将我们的预测概率划分类别标签（0或1）。
+
+.. rubric:: Decision boundary（决策边界）
 
 .. literalinclude:: ../code/logistic_regression.py
     :language: python
     :pyobject: decision_boundary
 
-.. rubric:: Convert probabilities to classes
+.. rubric:: Convert probabilities to classes（概率转换为类别）
 
 
 .. literalinclude:: ../code/logistic_regression.py
@@ -295,20 +301,24 @@ The final step is assign class labels (0 or 1) to our predicted probabilities.
   Classifications = [1, 0, 0, 1, 1, 0]
 
 
-Training
---------
+Training（训练）
+----------------
 
 Our training code is the same as we used for :ref:`linear regression <simple_linear_regression_training>`.
+
+我们的训练代码同线性回归一样 :ref:`linear regression <simple_linear_regression_training>`。
 
 .. literalinclude:: ../code/logistic_regression.py
     :language: python
     :pyobject: train
 
 
-Model evaluation
-----------------
+Model evaluation（模型评估）
+----------------------------
 
 If our model is working, we should see our cost decrease after every iteration.
+
+如果模型开始工作，我们可以看见随着每轮迭代成本减少。
 
 ::
 
@@ -323,18 +333,22 @@ If our model is working, we should see our cost decrease after every iteration.
 .. image:: images/logistic_regression_loss_history.png
     :align: center
 
-.. rubric:: Accuracy
+.. rubric:: Accuracy（精度）
 
 :ref:`Accuracy <glossary_accuracy>` measures how correct our predictions were. In this case we simply compare predicted labels to true labels and divide by the total.
+
+:ref:`Accuracy <glossary_accuracy>`估量我们预测的准确程度。在该案例中我们简单地将预测标签和真实标签进行比较，然后除以总数。
 
 .. literalinclude:: ../code/logistic_regression.py
     :language: python
     :pyobject: accuracy
 
 
-.. rubric:: Decision boundary
+.. rubric:: Decision boundary（决策边界）
 
 Another helpful technique is to plot the decision boundary on top of our predictions to see how our labels compare to the actual labels. This involves plotting our predicted probabilities and coloring them with their true labels.
+
+另一个有用的技巧是在我们的预测结果之上绘制决策边界，以此观察比较预测标签和真实标签。这包括绘制我们预测概率，并用真实标签为其着色。
 
 .. image:: images/logistic_regression_final_decision_boundary.png
     :align: center
